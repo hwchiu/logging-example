@@ -1,0 +1,15 @@
+apiVersion: logging.kubesphere.io/v1alpha2
+kind: Input
+metadata:
+  name: dummy
+  namespace: kubesphere-logging-system
+  labels:
+    logging.kubesphere.io/enabled: "true"
+    app.kubernetes.io/version: v0.2.0
+spec:
+  tail:
+    path: /var/log/containers/*.log
+    tag: kube.*
+    refreshIntervalSeconds: 5
+    memBufLimit: 5MB
+    parser: docker

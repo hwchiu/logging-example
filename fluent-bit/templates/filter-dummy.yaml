@@ -1,0 +1,20 @@
+apiVersion: logging.kubesphere.io/v1alpha2
+kind: Filter
+metadata:
+  name: dummy
+  namespace: kubesphere-logging-system
+  labels:
+    logging.kubesphere.io/enabled: "true"
+    app.kubernetes.io/version: v0.2.0
+spec:
+  match: kube.*
+  filters:
+  -  kubernetes:
+      kubeTagPrefix: "kube.var.log.containers."
+      kubeURL: "https://kubernetes.default.svc:443"
+      kubeCAPath: "/var/run/secrets/kubernetes.io/serviceaccount"
+      kubeCAFile: "ca.crt"
+      kubeTokenFile: "/var/run/secrets/kubernetes.io/serviceaccount/token"
+      mergeLog: true
+      k8sLoggingParser: true
+      k8sLoggingExclude: true
